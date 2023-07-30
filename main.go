@@ -4,7 +4,6 @@ import (
 	"fifa-telegram-bot/utils"
 	"fifa-telegram-bot/vars"
 	"fmt"
-	"github.com/joho/godotenv"
 	"github.com/yanzay/tbot/v2"
 	"log"
 	"os"
@@ -13,6 +12,13 @@ import (
 )
 
 func init() {
+
+	// get token from args
+	vars.Token = os.Args[1]
+
+	if vars.Token == "" {
+		log.Fatal("TOKEN is empty!")
+	}
 	var err error
 	vars.Teams, err = utils.GetTeamsFromSoFifa()
 	if err != nil {
@@ -23,14 +29,9 @@ func init() {
 }
 
 func main() {
-	// load
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("err loading: %v", err)
-	}
 
 	// start bot
-	bot := tbot.New(os.Getenv("TELEGRAM_BOT_TOKEN"))
+	bot := tbot.New(vars.Token)
 	c := bot.Client()
 	bot.HandleMessage("^\\/generate(?:\\s+-u)?$", func(m *tbot.Message) {
 		log.Println("received /generate")
@@ -72,7 +73,7 @@ func main() {
 			return
 		}
 	})
-	err = bot.Start()
+	err := bot.Start()
 	if err != nil {
 		log.Fatal(err)
 	}
