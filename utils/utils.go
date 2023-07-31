@@ -47,7 +47,7 @@ func GetTeamsFromSoFifa() ([]models.Team, error) {
 	})
 
 	for i := 0; i <= 180; i = i + 60 {
-		err := c.Visit("https://sofifa.com/teams?type=club&oal=70&oah=99&offset=" + strconv.Itoa(i))
+		err := c.Visit("https://sofifa.com/teams?type=club&oal=75&oah=99&offset=" + strconv.Itoa(i))
 		if err != nil {
 			return nil, err
 		}
@@ -95,26 +95,35 @@ func downloadFile(URL, fileName string) error {
 // GenerateTeams generates 2 random teams from the list of teams
 func GenerateTeams(teams []models.Team) []models.Team {
 
-	// generate a random number between 0 and len(teams)
-	rand.Seed(time.Now().Unix()) // initialize global pseudo random generator
-	randNum := rand.Intn(len(teams))
+	// generate 2 random numbers
+	randNum1, randNum2 := GenerateTwoRandomNumbers(len(teams))
 
-	fmt.Println("randNum: ", randNum)
-	//select 1 random team
-	team1 := teams[randNum]
+	//select first random team with the first random number
+	team1 := teams[randNum1]
 
-	//select 1 random team
-	team2 := teams[randNum]
+	//select second random team with the second random number
+	team2 := teams[randNum2]
 
-	//if team1 == team2, select another team
-	for team1.Name == team2.Name {
-		team2 = teams[randNum+1]
-	}
-
+	// add the 2 teams to a slice
 	var generatedTeams []models.Team
-
 	generatedTeams = append(generatedTeams, team1)
 	generatedTeams = append(generatedTeams, team2)
 
 	return generatedTeams
+}
+
+// GenerateTwoRandomNumbers generates 2 random numbers within the range of the length of the teams
+func GenerateTwoRandomNumbers(len int) (int, int) {
+	// generate a random number between 0 and len(teams)
+	rand.Seed(time.Now().Unix()) // initialize global pseudo random generator
+	randNum1 := rand.Intn(len)
+	randNum2 := rand.Intn(len)
+
+	randNum2 = randNum1
+	// if the 2 random numbers are the same, generate a new random number for the second number
+	for randNum1 == randNum2 {
+		randNum2 = rand.Intn(len)
+	}
+
+	return randNum1, randNum2
 }
