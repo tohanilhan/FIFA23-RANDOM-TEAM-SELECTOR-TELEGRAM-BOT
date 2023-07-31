@@ -33,8 +33,7 @@ func main() {
 	// start bot
 	bot := tbot.New(vars.Token)
 	c := bot.Client()
-	bot.HandleMessage("^\\/generate(?:\\s+-u)?$", func(m *tbot.Message) {
-		log.Println("received /generate")
+	bot.HandleMessage("^\\/generate(?:\\s+(-u|'-aA))?", func(m *tbot.Message) {
 		err := c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
 		if err != nil {
 			return
@@ -43,35 +42,34 @@ func main() {
 
 		// if -u flag is passed, update teams
 		if strings.TrimLeft(m.Text, "/generate ") == "-u" || vars.Teams == nil {
-			log.Println("Updating teams...")
+			_, err = c.SendMessage(m.Chat.ID, "Updating teams...\nPlease wait.")
+			if err != nil {
+				return
+			}
 			var err error
 			vars.Teams, err = utils.GetTeamsFromSoFifa()
 			if err != nil {
 				log.Fatal(err)
 			}
-			log.Println("Teams updated!")
 		}
 
-		log.Println("Generating teams...")
 		generatedTeams := utils.GenerateTeams(vars.Teams)
-		log.Println("Teams generated!")
 
-		// send message with teams and images
-		_, err = c.SendMessage(m.Chat.ID, fmt.Sprintf("Team 1: %+v\nTeam 2: %+v", generatedTeams[0].Name, generatedTeams[1].Name))
+		team1Info := fmt.Sprintf("Team 1: %s\nOVR: %d\n", generatedTeams[0].Name, generatedTeams[0].Overall)
+		team2Info := fmt.Sprintf("Team 2: %s\nOVR: %d\n", generatedTeams[1].Name, generatedTeams[1].Overall)
+
+		_, err = c.SendPhotoFile(m.Chat.ID, "images/"+generatedTeams[0].Image, tbot.OptCaption(team1Info))
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		_, err = c.SendPhotoFile(m.Chat.ID, "images/"+generatedTeams[0].Image, tbot.OptCaption("Team 1"))
+		_, err = c.SendPhotoFile(m.Chat.ID, "images/"+generatedTeams[1].Image, tbot.OptCaption(team2Info))
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		_, err = c.SendPhotoFile(m.Chat.ID, "images/"+generatedTeams[1].Image, tbot.OptCaption("Team 2"))
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+
+		log.Println("Teams generated for ChatID: ", m.Chat.ID)
 	})
 	err := bot.Start()
 	if err != nil {
