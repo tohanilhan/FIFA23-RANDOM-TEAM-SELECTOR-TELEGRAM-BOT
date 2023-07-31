@@ -33,6 +33,15 @@ func main() {
 	// start bot
 	bot := tbot.New(vars.Token)
 	c := bot.Client()
+	bot.HandleMessage("/help", func(m *tbot.Message) {
+		err := c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
+		if err != nil {
+			return
+		}
+		time.Sleep(1 * time.Second)
+
+		_, err = c.SendMessage(m.Chat.ID, "This bot generates two random teams from the top 300 teams in FIFA 21.\n\n You can use the following commands:\n\n/generate - Generates two random teams.\n/generate -u - Updates the teams and generates two random teams.\n/help - Shows this message.\n\nMade by @tohanilhan")
+	})
 	bot.HandleMessage("^\\/generate(?:\\s+(-u|'-aA))?", func(m *tbot.Message) {
 		err := c.SendChatAction(m.Chat.ID, tbot.ActionTyping)
 		if err != nil {
