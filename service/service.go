@@ -23,7 +23,7 @@ func StartBot() {
 		}
 		time.Sleep(1 * time.Second)
 
-		_, err = c.SendMessage(m.Chat.ID, "Hello! I am a bot that generates two random teams from the top 300 teams in FIFA 23.\n\nYou can use the following commands:\n\n/generate - Generates two random teams.\n/update - Updates the teams.\n/help - Shows description.\n\nMade by @tohanilhan")
+		_, err = c.SendMessage(m.Chat.ID, "Hello! I am a bot that generates two random teams from the top 300 teams in FIFA 23.\n\nYou can use the following commands:\n\n/random - Generates two random teams.\n/update - Updates the teams.\n/help - Shows description.\n\nMade by @tohanilhan")
 		if err != nil {
 			return
 		}
@@ -36,7 +36,7 @@ func StartBot() {
 		}
 		time.Sleep(1 * time.Second)
 
-		_, err = c.SendMessage(m.Chat.ID, "This bot generates two random teams from the top 300 teams in FIFA 23.\n\nYou can use the following commands:\n\n/generate - Generates two random teams.\n/update - Updates the teams.\n/help - Shows description.\n\nMade by @tohanilhan")
+		_, err = c.SendMessage(m.Chat.ID, "This bot generates two random teams from the top 300 teams in FIFA 23.\n\nYou can use the following commands:\n\n/random - Generates two random teams.\n/update - Updates the teams.\n/help - Shows description.\n\nMade by @tohanilhan")
 	})
 
 	bot.HandleMessage("/random", func(m *tbot.Message) {
