@@ -1,7 +1,7 @@
 # Dockerfile for 'klearis-cron-manager'
 # build stage
 # define base image
-FROM golang:1.20-alpine AS build
+FROM golang:1.20.7-alpine AS build
 
 
 # create work directory
