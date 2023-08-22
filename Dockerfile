@@ -34,4 +34,4 @@ WORKDIR /prog
 COPY --from=build /prog/prog .
 
 # run application
-ENTRYPOINT ["/prog/prog","6041537593:AAEVwq-4ntBXO_bWh9zyyRhfyJuuiAEt9Os"]
+ENTRYPOINT ["/prog/prog","{TOKEN}"]
