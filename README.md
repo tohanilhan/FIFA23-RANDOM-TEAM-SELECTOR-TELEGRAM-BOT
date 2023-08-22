@@ -1,7 +1,7 @@
 #   FIFA-RANDOM-TEAM-GENERATOR-BOT
 
 ## Description
-This is a Telegram bot that allows you to randomly select a team from the FIFA 23 game. The bot is written in Go and uses the [telegram-bot-api](https://github.com/go-telegram-bot-api/telegram-bot-api/tree/master) library for the Telegram Bot API.
+This is a Telegram bot that allows you to randomly select teams from the FIFA 23 game. The bot is written in Go and uses the [telegram-bot-api](https://github.com/go-telegram-bot-api/telegram-bot-api/tree/master) library for the Telegram Bot API.
 And also it uses [colly](https://github.com/gocolly/colly) for scraping teams data from the [SoFifa](https://sofifa.com/teams) website.
 
 You can use this bot to play with your friends in FIFA 23 when you don't know which team to choose or you want a little more excitement :)
