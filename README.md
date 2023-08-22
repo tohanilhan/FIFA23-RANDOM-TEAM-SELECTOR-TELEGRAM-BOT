@@ -20,23 +20,5 @@ To use the bot, you need to add it to your Telegram account. You can do this by 
 - `/update` - updates the list of teams
 
 
-## Todo
-- [ ] `/unique` - generates 2 random teams with unique leagues and ratings
-- [ ] `/random <number>` - get a random number of teams
-- [ ] `/random <rating>` - get a random team with the selected rating
-- [ ] `/random <country>` - get a random team from the selected country
-- [ ] `/random <league>` - get a random team from the selected league
-- [ ] `/random <number> <league>` - get a random number of teams from the selected league
-- [ ] `/random <rating> <league>` - get a random team with the selected rating and league
-- [ ] `/random <number> <country>` - get a random number of teams from the selected country
-- [ ] `/random <number> <rating>` - get a random number of teams with the selected rating
-- [ ] `/random <number> <league>` - get a random number of teams from the selected league
-- [ ] `/random <rating> <league> <country>` - get a random team with the selected rating, league and country
-- [ ] `/random <number> <league> <rating>` - get a random number of teams from the selected league and rating
-- [ ] `/random <number> <league> <country>` - get a random number of teams from the selected league and country
-- [ ] `/random <number> <country> <rating>` - get a random number of teams from the selected country and rating
-- [ ] `/random <number> <league> <country> <rating>` - get a random number of teams from the selected league, country and rating
-- 
-
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
